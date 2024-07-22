@@ -1,0 +1,48 @@
+const Joi = require("joi");
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const doctorSchema = new Schema({
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  fullName: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  phone: {
+    type: String,
+    required: true,
+  },
+  speciality: {
+    type: String,
+    required: true,
+  },
+});
+
+const Doctor = mongoose.model("Doctor", doctorSchema);
+
+function ValidationDoctor(doctor) {
+  const schema = Joi.object({
+    username: Joi.string().required().min(4).max(20),
+    password: Joi.string().required().min(6).max(20),
+    fullName: Joi.string().required().min(4).max(20),
+    phone: Joi.string().required().min(9).max(30),
+    speciality: Joi.string().required().min(4).max(40),
+    email: Joi.string().email().required(),
+  });
+
+  return schema.validate(doctor);
+}
+
+module.exports.Doctor = Doctor;
+module.exports.Validate = ValidationDoctor;
