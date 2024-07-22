@@ -1,6 +1,7 @@
 const Joi = require("joi");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const jwt = require("jsonwebtoken");
 
 // Define the Medication schema
 const medicationSchema = new Schema(
@@ -59,7 +60,13 @@ const patientSchema = new Schema({
   created_at: { type: Date, default: Date.now },
   updated_at: { type: Date, default: Date.now },
 });
-
+patientSchema.methods.generateAuthToken = function () {
+  const token = jwt.sign(
+    { _id: this._id, username: this.username, fullName: this.fullName },
+    process.env.jwtPrivateKey
+  );
+  return token;
+};
 const Patient = mongoose.model("Patient", patientSchema);
 
 function validatePatient(patient) {
@@ -120,8 +127,26 @@ function validateMedications(medications) {
   return medicationsSchema.validate(medications);
 }
 
+function validateLogin(patient) {
+  const schema = Joi.object({
+    username: Joi.string().min(4).max(20).required(),
+    password: Joi.string().min(6).max(20).required(),
+  });
+  return schema.validate(patient);
+}
+
+function validateForget(patient) {
+  const schema = Joi.object({
+    username: Joi.string().min(4).max(20).required(),
+    newPassword: Joi.string().min(6).max(20).required(),
+  });
+  return schema.validate(patient);
+}
+
 module.exports = {
   Patient,
   validatePatient,
   validateMedications,
+  validateLogin,
+  validateForget,
 };

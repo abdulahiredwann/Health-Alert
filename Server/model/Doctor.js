@@ -1,6 +1,8 @@
 const Joi = require("joi");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const jwt = require("jsonwebtoken");
+
 const doctorSchema = new Schema({
   username: {
     type: String,
@@ -29,6 +31,13 @@ const doctorSchema = new Schema({
   },
 });
 
+doctorSchema.methods.generateAuthToken = function () {
+  const token = jwt.sign(
+    { _id: this._id, username: this.username, fullName: this.fullName },
+    process.env.jwtPrivateKey
+  );
+  return token;
+};
 const Doctor = mongoose.model("Doctor", doctorSchema);
 
 function ValidationDoctor(doctor) {
