@@ -4,27 +4,25 @@ const Schema = mongoose.Schema;
 const jwt = require("jsonwebtoken");
 
 // Define the Medication schema
-const medicationSchema = new Schema(
-  {
-    name: { type: String, required: true },
-    dosage: { type: String, required: true },
-    frequency: {
-      type: String,
-      enum: [
-        "Once Daily",
-        "Twice Daily",
-        "Three Times Daily",
-        "Four Times Daily",
-        "Other",
-      ],
-      required: true,
-    },
-    start_date: { type: Date, required: false },
-    end_date: { type: Date, required: false },
-    notes: { type: String, required: false },
+const medicationSchema = new Schema({
+  name: { type: String, required: true },
+  dosage: { type: String, required: true },
+  frequency: {
+    type: String,
+    enum: [
+      "Once Daily",
+      "Twice Daily",
+      "Three Times Daily",
+      "Four Times Daily",
+      "Other",
+    ],
+    required: true,
   },
-  { _id: false }
-); // _id: false ensures no additional _id field is added to each medication
+  start_date: { type: Date, required: false },
+  end_date: { type: Date, required: false },
+  notes: { type: String, required: false },
+  lastNotified: { type: Date, default: null },
+});
 
 const patientSchema = new Schema({
   username: {
