@@ -62,7 +62,12 @@ const patientSchema = new Schema({
 });
 patientSchema.methods.generateAuthToken = function () {
   const token = jwt.sign(
-    { _id: this._id, username: this.username, fullName: this.fullName },
+    {
+      _id: this._id,
+      username: this.username,
+      fullName: this.fullName,
+      patient: true,
+    },
     process.env.jwtPrivateKey
   );
   return token;
@@ -88,9 +93,9 @@ function validatePatient(patient) {
   });
 
   const patientSchema = Joi.object({
-    username: Joi.string().required(),
-    password: Joi.string().required(),
-    fullName: Joi.string().required(),
+    username: Joi.string().required().min(4).max(20),
+    password: Joi.string().required().min(6).max(20),
+    fullName: Joi.string().required().min(4).max(20),
     email: Joi.string().email().required(),
     phone: Joi.string().required(),
     dateOfBirth: Joi.date().required(),
@@ -143,10 +148,19 @@ function validateForget(patient) {
   return schema.validate(patient);
 }
 
+function validateProfile(patient) {
+  const schema = Joi.object({
+    fullName: Joi.string().required().min(4).max(20),
+    email: Joi.string().email().required(),
+  });
+  return schema.validate(patient);
+}
+
 module.exports = {
   Patient,
   validatePatient,
   validateMedications,
   validateLogin,
   validateForget,
+  validateProfile,
 };

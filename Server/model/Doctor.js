@@ -33,7 +33,12 @@ const doctorSchema = new Schema({
 
 doctorSchema.methods.generateAuthToken = function () {
   const token = jwt.sign(
-    { _id: this._id, username: this.username, fullName: this.fullName },
+    {
+      _id: this._id,
+      username: this.username,
+      fullName: this.fullName,
+      doctor: true,
+    },
     process.env.jwtPrivateKey
   );
   return token;
