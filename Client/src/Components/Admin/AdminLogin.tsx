@@ -1,7 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
 import { useForm } from "react-hook-form";
-import { date, z } from "zod";
+import { useNavigate } from "react-router-dom";
+import { z } from "zod";
+import AdminLoginService from "../../Services/adminLoginServivice";
+import toast, { Toaster } from "react-hot-toast";
 
 const schema = z.object({
   username: z
@@ -17,6 +19,7 @@ const schema = z.object({
 type LoginFormData = z.infer<typeof schema>;
 
 function AdminLogin() {
+  const navigate = useNavigate();
   const {
     register,
     reset,
@@ -24,13 +27,27 @@ function AdminLogin() {
     handleSubmit,
   } = useForm<LoginFormData>({ resolver: zodResolver(schema) });
 
+  const run = async (data: LoginFormData) => {
+    try {
+      await AdminLoginService(data);
+      toast.success("Welcome");
+      setTimeout(() => {
+        navigate("/admin");
+      }, 2000);
+    } catch (error: any) {
+      console.log(error);
+      toast.error("Something Wrong ");
+    }
+  };
   return (
     <>
-      <div className="container mx-auto mt-5 p-4 bg-white rounded-lg shadow-md max-w-md">
+      <Toaster></Toaster>
+      <div className="container mx-auto mt-9 p-4 bg-white rounded-lg shadow-md max-w-md">
         <h1 className="text-center font-bold text-lg"> Admin Login</h1>
         <form
           onSubmit={handleSubmit((date) => {
-            console.log(date);
+            run(date);
+
             reset();
           })}
           className="space-y-4"

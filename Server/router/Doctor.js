@@ -9,7 +9,7 @@ const { auth, admin } = require("../Middleware/AuthAdmin");
 // Create Doctor
 router.post("/", [auth, admin], async (req, res) => {
   try {
-    const { username, password, fullName, email, phone, speciality } = req.body;
+    const { username, fullName, email, phone, speciality } = req.body;
     const { error } = Validate(req.body);
     if (error) {
       return res.status(400).send(error.details[0].message);
@@ -18,13 +18,14 @@ router.post("/", [auth, admin], async (req, res) => {
     if (doctor) {
       return res.status(400).send("username Alerdy Registerd");
     }
-    let hashedPassword = await bcrypt.hash(password, 10);
+    let defaultPassword = "12345678";
+    let hashedPassword = await bcrypt.hash(defaultPassword, 10);
     let newDoctore = new Doctor({
       username: username,
       password: hashedPassword,
       fullName: fullName,
       email: email,
-      phone: password,
+      phone: phone,
       speciality: speciality,
     });
 
@@ -59,6 +60,8 @@ router.post("/login", async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+
+// Change there Password for after they login
 
 //Forget doctor Password
 router.post("/forget", [auth, admin], async (req, res) => {
