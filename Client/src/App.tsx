@@ -1,11 +1,17 @@
 import { useState } from "react";
 import "./App.css";
+import AdminLogin from "./Components/Admin/AdminLogin";
+import NavBar from "./Components/NavBar/NavBar";
 
 function App() {
   return (
-    <div className="App">
-      <button className="btn">Hello daisyUI</button>
-    </div>
+    <>
+      <div>
+        {" "}
+        <NavBar></NavBar>
+        <AdminLogin></AdminLogin>
+      </div>
+    </>
   );
 }
 
