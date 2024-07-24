@@ -3,6 +3,8 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const _ = require("lodash");
+const sleep = require("sleep-promise");
+
 const {
   validatePatient,
   Patient,
@@ -18,20 +20,23 @@ const {
   authorized_Patient,
 } = require("../Middleware/AuthPatient");
 
-// Create Patient Register
-router.post("/", [auth, admin], async (req, res) => {
+// Create Patient Register[auth, admin],
+router.post("/", async (req, res) => {
   try {
-    const { username, password, fullName, email, phone, dateOfBirth, gender } =
-      req.body;
+    await sleep(1000);
+    const { username, fullName, email, phone, dateOfBirth, gender } = req.body;
     const { error } = validatePatient(req.body);
     if (error) {
       return res.status(400).send(error.details[0].message);
     }
+
     let patient = await Patient.findOne({ username });
     if (patient) {
-      return res.status(400).send("Username Alerdy Registerd!");
+      return res.status(400).send("Username Already Registered!");
     }
-    let hashedPassword = await bcrypt.hash(password, 10);
+
+    let defaultPassword = "12345678";
+    let hashedPassword = await bcrypt.hash(defaultPassword, 10);
 
     let newPatient = new Patient({
       username,

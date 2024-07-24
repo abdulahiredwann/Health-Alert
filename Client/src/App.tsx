@@ -2,6 +2,7 @@ import "./App.css";
 import Admin from "./Components/Admin/Admin";
 import AdminLogin from "./Components/Admin/AdminLogin";
 import CreateDoctor from "./Components/Admin/CreateDoctor";
+import CreatePatient from "./Components/Admin/CreatePatient";
 import NavBar from "./Components/NavBar/NavBar";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 function App() {
@@ -20,6 +21,10 @@ function App() {
             <Route
               path="/admin/createdoctor"
               element={<CreateDoctor></CreateDoctor>}
+            ></Route>
+            <Route
+              path="/admin/createpatient"
+              element={<CreatePatient></CreatePatient>}
             ></Route>
           </Routes>
         </div>

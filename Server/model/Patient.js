@@ -92,12 +92,11 @@ function validatePatient(patient) {
 
   const patientSchema = Joi.object({
     username: Joi.string().required().min(4).max(20),
-    password: Joi.string().required().min(6).max(20),
     fullName: Joi.string().required().min(4).max(20),
     email: Joi.string().email().required(),
     phone: Joi.string().required(),
     dateOfBirth: Joi.date().required(),
-    gender: Joi.string().valid("Male", "Female", "Other").required(),
+    gender: Joi.string().required(), // Must match the frontend field name
     medications: Joi.array().items(medicationSchema).optional(),
     created_at: Joi.date().optional(),
     updated_at: Joi.date().optional(),
