@@ -1,27 +1,28 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
-import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
+import toast, { Toaster } from "react-hot-toast";
 import Logo from "../../../public/logo.png";
-import AdminLoginService from "../../Services/adminLoginServivice";
+import { useState } from "react";
+import DoctorLoginService from "../../Services/doctorLoginService";
 import { CiLogin } from "react-icons/ci";
 
+// Define your schema using zod
 const schema = z.object({
   username: z
     .string()
-    .min(6, { message: "Username must be more that 6" })
+    .min(6, { message: "Username must be more than 6 characters" })
     .max(20),
   password: z
     .string()
-    .min(6, { message: "Password must be more than 6 character" })
+    .min(6, { message: "Password must be more than 6 characters" })
     .max(20),
 });
 
 type LoginFormData = z.infer<typeof schema>;
 
-function AdminLogin() {
+function LoginDoctor() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const {
@@ -34,19 +35,19 @@ function AdminLogin() {
   const run = async (data: LoginFormData) => {
     try {
       setIsLoading(true);
-      await AdminLoginService(data);
+      await DoctorLoginService(data);
       toast.success("Welcome");
       setTimeout(() => {
-        navigate("/admin");
+        navigate("patient/dashboard");
       }, 2000);
     } catch (error: any) {
       setIsLoading(false);
-      console.log(error);
-      toast.error("Something Wrong ");
+      toast.error("Something went wrong");
     } finally {
       setIsLoading(false);
     }
   };
+
   return (
     <>
       <Toaster />
@@ -55,7 +56,9 @@ function AdminLogin() {
           {/* Logo and Welcome Message */}
           <div className="text-center mb-6">
             <img src={Logo} alt="Logo" className="mx-auto mb-4 h-16 w-auto" />
-            <h1 className="text-2xl font-bold text-gray-800">Admin Login!</h1>
+            <h1 className="text-2xl font-bold text-gray-800">
+              Welcome Doctor!
+            </h1>
           </div>
           {/* Login Form */}
           <form
@@ -99,7 +102,7 @@ function AdminLogin() {
                   type="password"
                   id="password"
                   className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                  placeholder={"Enter your password"}
+                  placeholder="Enter your password"
                 />
               </div>
               {errors.password && (
@@ -133,4 +136,4 @@ function AdminLogin() {
   );
 }
 
-export default AdminLogin;
+export default LoginDoctor;

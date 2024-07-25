@@ -5,6 +5,9 @@ import CreateDoctor from "./Components/Admin/CreateDoctor";
 import CreatePatient from "./Components/Admin/CreatePatient";
 import NavBar from "./Components/NavBar/NavBar";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import LoginPatient from "./Components/Patient/LoginPatient";
+import Dashboard from "./Components/Patient/Dashboard";
+import Login from "./Components/NavBar/Login";
 function App() {
   return (
     <>
@@ -26,6 +29,15 @@ function App() {
               path="/admin/createpatient"
               element={<CreatePatient></CreatePatient>}
             ></Route>
+            <Route
+              path="/patient/login"
+              element={<LoginPatient></LoginPatient>}
+            ></Route>
+            <Route
+              path="/patient/dashboard"
+              element={<Dashboard></Dashboard>}
+            ></Route>
+            <Route path="/login" element={<Login></Login>}></Route>
           </Routes>
         </div>
       </BrowserRouter>

@@ -28,21 +28,24 @@ const Navbar = () => {
       <div className="flex-1">
         <a className="text-lg">ABD tech</a>
         <div className="">
-          <a href="/" className="hidden lg:inline-block px-4 text-base">
+          <a href="/" className="hidden lg:inline-block px-3 text-base">
             Home
           </a>
-          <a href="/" className="hidden lg:inline-block px-4 text-base">
+          <a href="/" className="hidden lg:inline-block px-3 text-base">
             About Us
           </a>
-          <a href="/" className="hidden lg:inline-block px-4 text-base">
+          <a href="/" className="hidden lg:inline-block px-3 text-base">
             Contact
           </a>
         </div>
       </div>
       <div className="flex-none">
-        <button className="btn btn-square btn-ghost">
-          <LuLogIn size={25} />
-        </button>
+        <a href="/login">
+          {" "}
+          <button className="btn btn-square btn-ghost">
+            <LuLogIn size={25} />
+          </button>
+        </a>
       </div>
     </div>
   );
