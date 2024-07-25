@@ -7,7 +7,9 @@ import NavBar from "./Components/NavBar/NavBar";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginPatient from "./Components/Patient/LoginPatient";
 import Dashboard from "./Components/Patient/Dashboard";
+import DoctorDashboard from "./Components/Doctor/Dashboard";
 import Login from "./Components/NavBar/Login";
+import LoginDoctor from "./Components/Doctor/LoginDoctor";
 function App() {
   return (
     <>
@@ -38,6 +40,14 @@ function App() {
               element={<Dashboard></Dashboard>}
             ></Route>
             <Route path="/login" element={<Login></Login>}></Route>
+            <Route
+              path="/doctor/login"
+              element={<LoginDoctor></LoginDoctor>}
+            ></Route>
+            <Route
+              path="/doctor/dashboard/:username?"
+              element={<DoctorDashboard></DoctorDashboard>}
+            ></Route>
           </Routes>
         </div>
       </BrowserRouter>

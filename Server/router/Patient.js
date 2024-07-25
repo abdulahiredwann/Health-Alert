@@ -20,8 +20,8 @@ const {
   authorized_Patient,
 } = require("../Middleware/AuthPatient");
 
-// Create Patient Register[auth, admin],
-router.post("/", async (req, res) => {
+// Create Patient Register
+router.post("/", [auth, admin], async (req, res) => {
   try {
     await sleep(1000);
     const { username, fullName, email, phone, dateOfBirth, gender } = req.body;
@@ -53,6 +53,35 @@ router.post("/", async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).send("Server Error");
+  }
+});
+
+// List of All of patient
+router.get("/list", async (req, res) => {
+  try {
+    const list = await Patient.find();
+    const sanitizedList = list.map((patient) =>
+      _.pick(patient.toObject(), ["username", "_id", "fullName"])
+    );
+    res.status(200).send(sanitizedList);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Server Error");
+  }
+});
+
+// Get Current Medicine of Patient
+router.get("/currentmedicine/:username", async (req, res) => {
+  try {
+    const { username } = req.params;
+    const medicine = await Patient.findOne({ username });
+    if (!medicine) {
+      return res.status(400).send("Username Not Found");
+    }
+    res.status(200).send(_.pick(medicine.toObject(), ["medications"]));
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("server Error");
   }
 });
 

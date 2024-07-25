@@ -38,7 +38,7 @@ function LoginDoctor() {
       await DoctorLoginService(data);
       toast.success("Welcome");
       setTimeout(() => {
-        navigate("patient/dashboard");
+        navigate("doctor/dashboard");
       }, 2000);
     } catch (error: any) {
       setIsLoading(false);
