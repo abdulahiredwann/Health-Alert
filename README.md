@@ -27,13 +27,11 @@ To set up the project locally, follow these steps:
    git clone https://github.com/abdulahiredwann/Health-Alert.git
    Navigate to the Project Directory:
 
-bash
-Copy code
+```bash
 cd healthalert
 Install Dependencies:
 
-bash
-Copy code
+```bash
 npm install
 Set Up Environment Variables:
 
@@ -41,8 +39,8 @@ Create a .env file in the root directory and add your environment variables as r
 
 Run the Project:
 
-bash
-Copy code
+```bash
+
 npm start
 Usage
 Register: New patients can sign up by providing necessary details.
