@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import AddMedicine from "./AddMedicine";
 
 interface Props {
-  username: string;
+  username?: string;
 }
 
 interface Medicine {
@@ -25,8 +25,12 @@ function PatientDeltais({ username }: Props) {
   useEffect(() => {
     const getMedicine = async () => {
       try {
-        const response = await api.get(`/patient/currentmedicine/${username}`);
-        setCurrentMedicine(response.data.medications);
+        if (username && username?.length >= 1) {
+          const response = await api.get(
+            `/patient/currentmedicine/${username}`
+          );
+          setCurrentMedicine(response.data.medications);
+        }
       } catch (err) {
         toast.error("Something Wrong");
       }
@@ -37,7 +41,7 @@ function PatientDeltais({ username }: Props) {
     <>
       <div>
         <button className="btn btn-outline" onClick={openModal}>
-          Add Medicen
+          Add Medicine
         </button>
 
         {isModalOpen && <AddMedicine closeModal={closeModal} />}

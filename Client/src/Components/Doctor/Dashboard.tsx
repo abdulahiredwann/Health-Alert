@@ -15,9 +15,7 @@ function Dashboard() {
       <div className="md:col-span-2 flex flex-col">
         {/* Patient Details */}
         <div className=" p-4 flex-grow">
-          <PatientDeltais
-            username={username || "Select Patient"}
-          ></PatientDeltais>
+          <PatientDeltais username={username}></PatientDeltais>
         </div>
       </div>
     </div>
