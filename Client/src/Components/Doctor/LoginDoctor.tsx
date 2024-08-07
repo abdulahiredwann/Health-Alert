@@ -7,6 +7,7 @@ import Logo from "../../../public/logo.png";
 import { useState } from "react";
 import DoctorLoginService from "../../Services/doctorLoginService";
 import { CiLogin } from "react-icons/ci";
+import { useAuth } from "../../Services/Auth";
 
 // Define your schema using zod
 const schema = z.object({
@@ -25,6 +26,7 @@ type LoginFormData = z.infer<typeof schema>;
 function LoginDoctor() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
+  const { setIsAuthenticated } = useAuth();
   const {
     register,
     reset,
@@ -37,9 +39,8 @@ function LoginDoctor() {
       setIsLoading(true);
       await DoctorLoginService(data);
       toast.success("Welcome");
-      setTimeout(() => {
-        navigate("/doctor/dashboard");
-      }, 2000);
+      navigate("/doctor/dashboard");
+      setIsAuthenticated(true);
     } catch (error: any) {
       setIsLoading(false);
       toast.error("Something went wrong");

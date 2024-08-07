@@ -10,48 +10,33 @@ import Dashboard from "./Components/Patient/Dashboard";
 import DoctorDashboard from "./Components/Doctor/Dashboard";
 import Login from "./Components/NavBar/Login";
 import LoginDoctor from "./Components/Doctor/LoginDoctor";
+import { AuthProvider } from "./Services/Auth";
+
 function App() {
   return (
-    <>
-      <BrowserRouter>
+    <BrowserRouter>
+      <AuthProvider>
         <div>
-          {" "}
-          <NavBar></NavBar>
+          <NavBar />
           <Routes>
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/admin/createdoctor" element={<CreateDoctor />} />
+            <Route path="/admin/createpatient" element={<CreatePatient />} />
+
             <Route
-              path="/adminlogin"
-              element={<AdminLogin></AdminLogin>}
-            ></Route>
-            <Route path="/admin" element={<Admin></Admin>}></Route>
-            <Route
-              path="/admin/createdoctor"
-              element={<CreateDoctor></CreateDoctor>}
-            ></Route>
-            <Route
-              path="/admin/createpatient"
-              element={<CreatePatient></CreatePatient>}
-            ></Route>
-            <Route
-              path="/patient/login"
-              element={<LoginPatient></LoginPatient>}
-            ></Route>
-            <Route
-              path="/patient/dashboard"
-              element={<Dashboard></Dashboard>}
-            ></Route>
-            <Route path="/login" element={<Login></Login>}></Route>
-            <Route
-              path="/doctor/login"
-              element={<LoginDoctor></LoginDoctor>}
-            ></Route>
+              path="/patient/dashboard/:username?"
+              element={<Dashboard />}
+            />
+            <Route path="/login" element={<Login />} />
+            <Route path="/doctor/login" element={<LoginDoctor />} />
             <Route
               path="/doctor/dashboard/:username?"
-              element={<DoctorDashboard></DoctorDashboard>}
-            ></Route>
+              element={<DoctorDashboard />}
+            />
           </Routes>
         </div>
-      </BrowserRouter>
-    </>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 

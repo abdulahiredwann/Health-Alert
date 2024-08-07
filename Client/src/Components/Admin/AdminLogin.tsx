@@ -7,6 +7,7 @@ import { z } from "zod";
 import Logo from "../../../public/logo.png";
 import AdminLoginService from "../../Services/adminLoginServivice";
 import { CiLogin } from "react-icons/ci";
+import { useAuth } from "../../Services/Auth";
 
 const schema = z.object({
   username: z
@@ -24,6 +25,7 @@ type LoginFormData = z.infer<typeof schema>;
 function AdminLogin() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
+  const { setIsAuthenticated } = useAuth();
   const {
     register,
     reset,
@@ -36,9 +38,8 @@ function AdminLogin() {
       setIsLoading(true);
       await AdminLoginService(data);
       toast.success("Welcome");
-      setTimeout(() => {
-        navigate("/admin");
-      }, 2000);
+      navigate("/admin");
+      setIsAuthenticated(true);
     } catch (error: any) {
       setIsLoading(false);
       console.log(error);

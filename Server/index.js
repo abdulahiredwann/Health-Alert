@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const doctor = require("./router/Doctor");
 const patient = require("./router/Patient");
 const admin = require("./router/Admin");
+const users = require("./router/users");
 
 const cors = require("cors");
 app.use(cors());
@@ -23,6 +24,7 @@ mongoose
 app.use("/api/doctor", doctor);
 app.use("/api/patient", patient);
 app.use("/api/admin", admin);
+app.use("/api/users", users);
 
 app.listen(3000, () => {
   console.log("server listinign 3000");
