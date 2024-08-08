@@ -1,16 +1,14 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Admin from "./Components/Admin/Admin";
-import AdminLogin from "./Components/Admin/AdminLogin";
 import CreateDoctor from "./Components/Admin/CreateDoctor";
 import CreatePatient from "./Components/Admin/CreatePatient";
-import NavBar from "./Components/NavBar/NavBar";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import LoginPatient from "./Components/Patient/LoginPatient";
-import Dashboard from "./Components/Patient/Dashboard";
 import DoctorDashboard from "./Components/Doctor/Dashboard";
 import Login from "./Components/NavBar/Login";
-import LoginDoctor from "./Components/Doctor/LoginDoctor";
+import NavBar from "./Components/NavBar/NavBar";
+import Dashboard from "./Components/Patient/Dashboard";
 import { AuthProvider } from "./Services/Auth";
+import MyProfile from "./Components/Patient/MyProfile";
 
 function App() {
   return (
@@ -27,8 +25,8 @@ function App() {
               path="/patient/dashboard/:username?"
               element={<Dashboard />}
             />
+            <Route path="/patient/profile/:username?" element={<MyProfile />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/doctor/login" element={<LoginDoctor />} />
             <Route
               path="/doctor/dashboard/:username?"
               element={<DoctorDashboard />}

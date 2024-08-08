@@ -12,6 +12,7 @@ const {
   validateLogin,
   validateForget,
   validateProfile,
+  validatePassword,
 } = require("../model/Patient");
 const { auth, admin } = require("../Middleware/AuthAdmin");
 const { auth_Doctor, authorized_Doctor } = require("../Middleware/AuthDoctor");
@@ -115,7 +116,7 @@ router.put(
   [auth_patient, authorized_Patient],
   async (req, res) => {
     try {
-      const { fullName, email } = req.body;
+      const { fullName, email, phone } = req.body;
       const { username } = req.params;
       const { error } = validateProfile(req.body);
       if (error) {
@@ -127,6 +128,7 @@ router.put(
       }
       patient.fullName = fullName;
       patient.email = email;
+      patient.phone = phone;
 
       await patient.save();
       res.status(200).send("Done");
@@ -136,6 +138,32 @@ router.put(
     }
   }
 );
+
+// Change password
+router.put("/:username/password", async (req, res) => {
+  try {
+    const { username } = req.params;
+    const { oldPassword, newPassword } = req.body;
+    const { error } = validatePassword(req.body);
+    if (error) {
+      return res.status(400).send(error.details[0].message);
+    }
+    const user = await Patient.findOne({ username });
+    if (!user) {
+      return res.status(404).send("User Not Found!");
+    }
+    if (!(await bcrypt.compare(oldPassword, user.password))) {
+      return res.status(400).send("Password Does Not Match");
+    }
+    const hash = await bcrypt.hash(newPassword, 10); // Ensure correct argument
+    user.password = hash;
+    await user.save();
+    res.send("Password updated successfully");
+  } catch (error) {
+    res.status(500).send("Server Error");
+    console.log(error);
+  }
+});
 
 // Forget Password
 router.post("/forget", [auth, admin], async (req, res) => {

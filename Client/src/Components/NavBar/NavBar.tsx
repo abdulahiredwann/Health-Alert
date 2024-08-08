@@ -10,6 +10,7 @@ import { useAuth } from "../../Services/Auth"; // Adjust import as needed
 
 interface User {
   fullName: string;
+  username: string;
 }
 
 const Navbar = () => {
@@ -49,7 +50,7 @@ const Navbar = () => {
     <div className="navbar  bg-gray-800 text-white">
       <div className="flex-none">
         <details className="dropdown">
-          <summary className="btn bg-white">
+          <summary className="btn bg-gray-800 text-white ">
             <TiThMenuOutline size={25} />
           </summary>
           <ul className="menu   bg-gray-800 text-white dropdown-content  rounded-box z-[1] w-52 p-2 shadow">
@@ -109,7 +110,7 @@ const Navbar = () => {
             <ul className="menu  bg-gray-800 text-white dropdown-content  rounded-box z-10 w-52 p-2 shadow-lg mt-2 absolute right-0">
               <li>
                 <a
-                  href="/profile"
+                  href={`/patient/profile/${user?.username}`}
                   className=" hover:bg-white hover:text-black flex items-center space-x-2"
                 >
                   <CgProfile size={20} />

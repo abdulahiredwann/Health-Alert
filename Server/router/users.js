@@ -36,5 +36,20 @@ router.get("/", async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
+router.get("/profile/:username", async (req, res) => {
+  const { username } = req.params;
+  try {
+    const profile = await Patient.findOne({ username }).select(
+      "username email fullName phone dateOfBirth"
+    );
+    if (!profile) {
+      return res.status(404).send("Username Not Found");
+    }
+    res.status(200).send(profile);
+  } catch (error) {
+    res.status(500).send("Server Error");
+    console.log(error);
+  }
+});
 
 module.exports = router;

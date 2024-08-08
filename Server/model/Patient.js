@@ -149,6 +149,14 @@ function validateProfile(patient) {
   const schema = Joi.object({
     fullName: Joi.string().required().min(4).max(20),
     email: Joi.string().email().required(),
+    phone: Joi.string().required(),
+  });
+  return schema.validate(patient);
+}
+function validatePassword(patient) {
+  const schema = Joi.object({
+    oldPassword: Joi.string().required().min(6).max(50),
+    newPassword: Joi.string().required().min(6).max(50),
   });
   return schema.validate(patient);
 }
@@ -159,5 +167,6 @@ module.exports = {
   validateMedications,
   validateLogin,
   validateForget,
+  validatePassword,
   validateProfile,
 };
