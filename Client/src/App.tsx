@@ -9,6 +9,10 @@ import NavBar from "./Components/NavBar/NavBar";
 import Dashboard from "./Components/Patient/Dashboard";
 import { AuthProvider } from "./Services/Auth";
 import MyProfile from "./Components/Patient/MyProfile";
+import HomePage from "./Components/Home";
+import ContactPage from "./Components/Contact";
+import AboutUsPage from "./Components/AboutUs";
+import Footer from "./Components/Footer";
 
 function App() {
   return (
@@ -17,6 +21,9 @@ function App() {
         <div>
           <NavBar />
           <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutUsPage />} />
+            <Route path="/contact" element={<ContactPage />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/admin/createdoctor" element={<CreateDoctor />} />
             <Route path="/admin/createpatient" element={<CreatePatient />} />
@@ -32,6 +39,7 @@ function App() {
               element={<DoctorDashboard />}
             />
           </Routes>
+          <Footer></Footer>
         </div>
       </AuthProvider>
     </BrowserRouter>
