@@ -4,7 +4,7 @@ import { Cross2Icon } from "@radix-ui/react-icons";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { z } from "zod";
 import EditProfiles from "../../Services/editProfileService";
 
@@ -28,7 +28,6 @@ export type EditProfile = z.infer<typeof schema>;
 
 const EditProfile = ({ closeModal }: EditProfileProps) => {
   const { username } = useParams();
-  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
