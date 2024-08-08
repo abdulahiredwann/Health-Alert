@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import api from "../../Services/api";
 import toast from "react-hot-toast";
 import AddMedicine from "./AddMedicine";
+import useVaildation from "../../hooks/useValidation";
 
 interface Props {
   username?: string;
@@ -18,6 +19,8 @@ interface Medicine {
 
 function PatientDeltais({ username }: Props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  useVaildation();
+
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
   const [currentMedicine, setCurrentMedicine] = useState<Medicine[]>([]);

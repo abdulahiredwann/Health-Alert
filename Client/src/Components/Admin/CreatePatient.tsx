@@ -11,6 +11,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import dayjs from "dayjs";
 import CreateNewPatient from "../../Services/createNewPatient";
 import axios from "axios";
+import useVaildation from "../../hooks/useValidation";
 
 const schema = z.object({
   fullName: z
@@ -36,6 +37,7 @@ function CreatePatient() {
   const [fullName, setFullName] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  useVaildation();
 
   const {
     register,

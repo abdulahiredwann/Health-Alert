@@ -3,6 +3,8 @@ import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import api from "../../Services/api";
 import MedicineModal from "./MedicineModal";
+import useVaildation from "../../hooks/useValidation";
+import usePatientValidation from "../../hooks/usePatientValidation";
 
 export interface Medicine {
   _id: string;
@@ -12,14 +14,15 @@ export interface Medicine {
   start_date: string; // ISO date strings
   end_date: string; // ISO date strings
 }
-
 function Dashboard() {
+  useVaildation();
   const [currentMedicine, setCurrentMedicine] = useState<Medicine[]>([]);
   const [selectedMedicine, setSelectedMedicine] = useState<Medicine | null>(
     null
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { username } = useParams();
+  const { username } = useParams<{ username: string | any }>();
+  usePatientValidation({ username });
 
   useEffect(() => {
     const fetchMedicine = async (username: string) => {

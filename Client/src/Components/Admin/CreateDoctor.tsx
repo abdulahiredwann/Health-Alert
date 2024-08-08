@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import CreateNewDoctor from "../../Services/createNewDoctor";
 import toast, { Toaster } from "react-hot-toast";
+import useVaildation from "../../hooks/useValidation";
 
 // Define the schema with Zod
 const schema = z.object({
@@ -64,6 +65,7 @@ function CreateDoctor() {
     run(data);
     reset();
   };
+  useVaildation();
 
   return (
     <>

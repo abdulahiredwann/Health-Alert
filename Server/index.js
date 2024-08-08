@@ -8,6 +8,7 @@ const doctor = require("./router/Doctor");
 const patient = require("./router/Patient");
 const admin = require("./router/Admin");
 const users = require("./router/users");
+const validate = require("./router/Validation");
 
 const cors = require("cors");
 app.use(cors());
@@ -24,6 +25,7 @@ mongoose
 app.use("/api/doctor", doctor);
 app.use("/api/patient", patient);
 app.use("/api/admin", admin);
+app.use("/api/validate", validate);
 app.use("/api/users", users);
 
 app.listen(3000, () => {

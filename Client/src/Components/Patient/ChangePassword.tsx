@@ -7,6 +7,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { z } from "zod";
 import ChangePasswords from "../../Services/changePassword";
+import useVaildation from "../../hooks/useValidation";
 
 interface ChangePasswordProps {
   closeModal: () => void;
@@ -27,6 +28,8 @@ const schema = z.object({
 export type ChangePassword = z.infer<typeof schema>;
 
 const ChangePassword = ({ closeModal }: ChangePasswordProps) => {
+  useVaildation();
+
   const { username } = useParams();
   const navigate = useNavigate();
   const {

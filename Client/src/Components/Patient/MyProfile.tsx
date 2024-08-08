@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import api from "../../Services/api";
 import EditProfile from "./EditProfile";
 import ChangePassword from "./ChangePassword";
+import useVaildation from "../../hooks/useValidation";
 
 interface Profile {
   fullName: string;
@@ -18,6 +19,8 @@ interface Profile {
 }
 
 function MyProfile() {
+  useVaildation();
+
   const [copied, setCopied] = useState(false);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);

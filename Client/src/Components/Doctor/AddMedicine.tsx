@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { z } from "zod";
 import AssignMedicine from "../../Services/AssignMedicin";
+import useVaildation from "../../hooks/useValidation";
 
 interface AddMedicineProps {
   closeModal: () => void;
@@ -46,6 +47,8 @@ const frequencyOptions = [
 
 const AddMedicine = ({ closeModal }: AddMedicineProps) => {
   const { username } = useParams();
+  useVaildation();
+
   const navigate = useNavigate();
   const {
     register,

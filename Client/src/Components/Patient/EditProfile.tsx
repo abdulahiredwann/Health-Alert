@@ -7,6 +7,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import { z } from "zod";
 import EditProfiles from "../../Services/editProfileService";
+import useVaildation from "../../hooks/useValidation";
 
 interface EditProfileProps {
   closeModal: () => void;
@@ -27,6 +28,8 @@ const schema = z.object({
 export type EditProfile = z.infer<typeof schema>;
 
 const EditProfile = ({ closeModal }: EditProfileProps) => {
+  useVaildation();
+
   const { username } = useParams();
   const {
     register,

@@ -1,9 +1,12 @@
 import { useParams } from "react-router-dom";
 import SearchPatient from "./SearchPatient";
 import PatientDeltais from "./PatientDeltais";
+import useVaildation from "../../hooks/useValidation";
 
 function Dashboard() {
   const { username } = useParams();
+  useVaildation();
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-screen">
       {/* Left Column: Search Component */}
